@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>UConnect</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Onest:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body data-mode="public">
+
+  <!-- Icons and the logo. Each one is drawn once here and reused with <use href="#icon-name">. -->
+  <svg class="icon-sprite" aria-hidden="true" focusable="false">
+    <symbol id="logo" viewBox="0 0 32 32">
+      <rect class="logo-bg" width="32" height="32" rx="9"/>
+      <path class="logo-u" d="M9.5 9v7.5a6.5 6.5 0 0 0 13 0V9"/>
+      <path class="logo-leaf" d="M16.2 16.4c-.4-3.6 1.6-6.4 5.6-7.2.3 3.8-2 6.6-5.6 7.2z"/>
+    </symbol>
+    <symbol id="icon-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+    <symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="icon-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="icon-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="icon-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></symbol>
+    <symbol id="icon-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 17v4M17 19h4"/></symbol>
+    <symbol id="icon-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></symbol>
+    <symbol id="icon-basket" viewBox="0 0 24 24"><path d="M3 10h18l-1.6 9.2a2 2 0 0 1-2 1.8H6.6a2 2 0 0 1-2-1.8z"/><path d="M8 10l4-6 4 6"/><path d="M9.5 14v3M14.5 14v3"/></symbol>
+    <symbol id="icon-book" viewBox="0 0 24 24"><path d="M2 5h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"/><path d="M22 5h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"/></symbol>
+    <symbol id="icon-heart" viewBox="0 0 24 24"><path d="M19.5 12.6 12 20l-7.5-7.4A5 5 0 1 1 12 6a5 5 0 1 1 7.5 6.6z"/></symbol>
+  </svg>
+
+
+  <!-- ============ Header (shared by both sides) ============ -->
+
+  <header class="site-header">
+    <div class="wrap header-row" id="headerRow">
+      <a class="brand" href="#home" data-page="home" aria-label="UConnect home">
+        <svg class="logo" aria-hidden="true"><use href="#logo"/></svg>
+        <span>UConnect</span>
+      </a>
+      <span class="staff-label">Student dashboard</span>
+
+      <nav class="main-nav" id="mainNav" aria-label="Main">
+        <a href="#home" data-page="home" data-i18n="nav_home">Home</a>
+        <a href="#food" data-page="food" data-i18n="nav_food">Get food</a>
+        <a href="#locations" data-page="locations" data-i18n="nav_locations">Locations</a>
+        <a href="#tutoring" data-page="tutoring" data-i18n="nav_tutoring">Tutoring</a>
+        <a href="#recipes" data-page="recipes" data-i18n="nav_recipes">Recipes</a>
+        <a href="#help" data-page="help" data-i18n="nav_help">Help out</a>
+      </nav>
+
+      <div class="header-actions">
+        <label for="languageSelect" class="sr-only" data-i18n="language">Language</label>
+        <select id="languageSelect" class="language-select public-only">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="zh">中文</option>
+          <option value="ru">Русский</option>
+        </select>
+
+        <button class="icon-button text-size-button public-only" type="button" id="textSizeButton" aria-pressed="false">
+          <span aria-hidden="true">A<small>A</small></span>
+        </button>
+
+        <a class="icon-button with-label public-only" href="#mine" data-page="mine" id="myRequestsButton" data-i18n-label="my_requests" aria-label="My requests">
+          <svg class="icon"><use href="#icon-bell"/></svg>
+          <span class="button-label" data-i18n="my_requests">My requests</span>
+          <span class="badge" id="updateCount" hidden>0</span>
+        </a>
+
+        <button class="btn btn-outline btn-small" type="button" id="loginButton">
+          <svg class="icon"><use href="#icon-user"/></svg>
+          <span class="login-text" id="loginText">Student login</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="banner" id="sampleBanner" hidden>
+    <div class="wrap">
+      <svg class="icon"><use href="#icon-info"/></svg>
+      <span data-i18n="sample_banner"></span>
+    </div>
+  </div>
+
+
+  <!-- ============ Public site (families and neighbors) ============ -->
+  <!-- Text comes from js/translations.js. Anything with data-i18n gets filled in for the chosen language. -->
+
+  <main id="publicSite">
+
+    <!-- Home -->
+    <section class="page" id="page-home">
+      <div class="wrap">
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow" data-i18n="home_eyebrow"></p>
+            <h1 class="hero-title" data-i18n="home_title"></h1>
+            <p class="lead" data-i18n="home_lead"></p>
+
+            <h2 class="sr-only" data-i18n="need_title"></h2>
+            <div class="need-grid">
+              <button class="need-card" type="button" data-page="food">
+                <span class="need-icon"><svg class="icon"><use href="#icon-basket"/></svg></span>
+                <strong data-i18n="card_food_title"></strong>
+                <span data-i18n="card_food_text"></span>
+              </button>
+              <button class="need-card" type="button" data-page="locations">
+                <span class="need-icon"><svg class="icon"><use href="#icon-pin"/></svg></span>
+                <strong data-i18n="card_places_title"></strong>
+                <span data-i18n="card_places_text"></span>
+              </button>
+              <button class="need-card" type="button" data-page="tutoring">
+                <span class="need-icon"><svg class="icon"><use href="#icon-book"/></svg></span>
+                <strong data-i18n="card_tutor_title"></strong>
+                <span data-i18n="card_tutor_text"></span>
+              </button>
+              <button class="need-card" type="button" data-page="help">
+                <span class="need-icon"><svg class="icon"><use href="#icon-heart"/></svg></span>
+                <strong data-i18n="card_help_title"></strong>
+                <span data-i18n="card_help_text"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- "On the shelf right now" box, filled by js/home.js -->
+          <aside class="shelf" aria-labelledby="shelfTitle">
+            <div class="shelf-head">
+              <h2 id="shelfTitle" data-i18n="shelf_title"></h2>
+              <span class="live-dot" id="liveDot" data-i18n="live"></span>
+            </div>
+            <ul class="leaders" id="shelfList"></ul>
+            <div class="shelf-foot" id="shelfFoot"></div>
+          </aside>
+        </div>
+
+        <!-- "What we've done since August 1" (js/impact.js) -->
+        <section class="impact-strip" id="impactStrip" hidden aria-labelledby="impactTitle">
+          <h2 class="impact-title" id="impactTitle"></h2>
+          <div class="impact-numbers" id="impactNumbers"></div>
+        </section>
+
+        <div class="home-lower">
+          <div>
+            <h2 class="section-title" data-i18n="spots_title"></h2>
+            <ul class="spot-list" id="spotList"></ul>
+            <p class="spots-link">
+              <button class="link-button" type="button" data-page="locations" data-i18n="spots_all"></button>
+            </p>
+          </div>
+          <div>
+            <h2 class="section-title" data-i18n="how_title"></h2>
+            <ol class="steps">
+              <li><span class="step-number">1</span><h3 data-i18n="how_1_title"></h3><p data-i18n="how_1_text"></p></li>
+              <li><span class="step-number">2</span><h3 data-i18n="how_2_title"></h3><p data-i18n="how_2_text"></p></li>
+              <li><span class="step-number">3</span><h3 data-i18n="how_3_title"></h3><p data-i18n="how_3_text"></p></li>
+            </ol>
+            <p class="about-text" data-i18n="about_text"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Get food: pick a place, fill a bag, send the request (js/food.js) -->
+    <section class="page" id="page-food" hidden>
+      <div class="wrap">
+        <div class="page-head">
+          <h1 data-i18n="food_title"></h1>
+          <p data-i18n="food_lead"></p>
+        </div>
+
+        <h2 class="step-label"><span class="step-number">1</span><span data-i18n="pick_location"></span></h2>
+        <div class="location-picker" id="locationPicker"></div>
+
+        <div class="food-layout">
+          <div>
+            <h2 class="step-label"><span class="step-number">2</span><span data-i18n="choose_items"></span></h2>
+            <div class="filters">
+              <div class="search">
+                <svg class="icon"><use href="#icon-search"/></svg>
+                <label for="itemSearch" class="sr-only" data-i18n="search_items"></label>
+                <input id="itemSearch" type="search" autocomplete="off" data-i18n-placeholder="search_items">
+              </div>
+            </div>
+            <div class="chips category-chips" id="categoryChips"></div>
+
+            <!-- allergy and diet filters (js/food.js renderFilterChips) -->
+            <details class="diet-filters" id="dietFilters">
+              <summary><span data-i18n="filters_title"></span> <span id="dietFilterCount"></span></summary>
+              <div class="filter-row">
+                <span class="filter-label" data-i18n="avoid_label"></span>
+                <div class="chips" id="avoidChips"></div>
+              </div>
+              <div class="filter-row">
+                <span class="filter-label" data-i18n="only_label"></span>
+                <div class="chips" id="onlyDietChips"></div>
+              </div>
+            </details>
+            <div class="item-grid" id="itemGrid"></div>
+          </div>
+
+          <aside class="bag" id="bag">
+            <!-- shows after a request is sent, in place of the bag (js/food.js renderSentBox) -->
+            <div class="panel sent-box" id="sentBox" tabindex="-1" role="status" hidden>
+              <span class="sent-icon"><svg class="icon"><use href="#icon-check"/></svg></span>
+              <h2 data-i18n="sent_title"></h2>
+              <p id="sentWhere"></p>
+              <p class="sent-when" id="sentWhen" hidden></p>
+              <div class="sent-code-box" id="sentCodeBox" hidden>
+                <span data-i18n="sent_code"></span>
+                <strong class="sent-code" id="sentCode"></strong>
+                <small data-i18n="sent_code_hint"></small>
+              </div>
+              <p class="muted" data-i18n="sent_next"></p>
+              <div class="sent-buttons">
+                <a class="btn btn-primary" href="#mine" data-page="mine" data-i18n="see_my_requests"></a>
+                <button class="btn btn-outline" type="button" id="newBagButton" data-i18n="new_bag"></button>
+              </div>
+            </div>
+
+            <div class="panel" id="bagPanel">
+              <h2 class="step-label"><span class="step-number">3</span><span data-i18n="your_bag"></span></h2>
+              <p class="muted" id="bagPlace"></p>
+              <ul class="bag-list" id="bagList"></ul>
+            </div>
+
+            <form class="panel bag-form" id="requestForm" novalidate>
+              <label class="check-row" for="useCode">
+                <input type="checkbox" id="useCode">
+                <span><span data-i18n="use_code"></span><small data-i18n="use_code_hint"></small></span>
+              </label>
+              <div class="field" id="nameField">
+                <label for="requestName" data-i18n="your_name"></label>
+                <input id="requestName" maxlength="80" autocomplete="given-name">
+              </div>
+              <div class="field">
+                <label for="requestHousehold"><span data-i18n="household"></span> <span class="optional" data-i18n="optional"></span></label>
+                <input id="requestHousehold" type="number" min="1" max="20" inputmode="numeric">
+              </div>
+              <!-- pickup times, when the place uses them (js/food.js renderSlotPicker) -->
+              <fieldset class="slot-field" id="slotField" hidden>
+                <legend data-i18n="pickup_slot"></legend>
+                <div class="chips slot-days" id="slotDays"></div>
+                <div class="slot-times" id="slotTimes"></div>
+              </fieldset>
+              <div class="field" id="timeField">
+                <label for="requestTime"><span data-i18n="pickup_time"></span> <span class="optional" data-i18n="optional"></span></label>
+                <input id="requestTime" maxlength="80" data-i18n-placeholder="pickup_time_example">
+              </div>
+              <div class="field">
+                <label for="requestContact"><span data-i18n="contact"></span> <span class="optional" data-i18n="optional"></span></label>
+                <input id="requestContact" maxlength="120" autocomplete="tel">
+              </div>
+              <div class="field">
+                <label for="requestNotes"><span data-i18n="notes"></span> <span class="optional" data-i18n="optional"></span></label>
+                <textarea id="requestNotes" rows="2" maxlength="500" data-i18n-placeholder="notes_example"></textarea>
+              </div>
+              <div class="form-actions">
+                <button class="btn btn-primary" type="submit" id="requestSubmit"><span data-i18n="send_request"></span></button>
+                <p class="message" id="requestMessage" hidden role="status"></p>
+              </div>
+            </form>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Locations: map and list (js/map.js and js/locations.js) -->
+    <section class="page" id="page-locations" hidden>
+      <div class="wrap">
+        <div class="page-head">
+          <h1 data-i18n="places_title"></h1>
+          <p data-i18n="places_lead"></p>
+        </div>
+
+        <div class="find-grid">
+          <div class="map-column">
+            <div class="map" id="map">
+              <canvas id="mapCanvas" aria-hidden="true"></canvas>
+              <div class="map-pins" id="mapPins"></div>
+              <p class="map-message" id="mapMessage" hidden></p>
+            </div>
+            <p class="map-legend">
+              <span class="legend-item"><span class="legend-pin ours" aria-hidden="true"></span><span data-i18n="takes_requests"></span></span>
+              <span class="legend-item"><span class="legend-pin" aria-hidden="true"></span><span data-i18n="legend_other"></span></span>
+            </p>
+            <div class="map-tools">
+              <label for="nearSelect" data-i18n="near_label"></label>
+              <select id="nearSelect"></select>
+            </div>
+          </div>
+          <ol class="place-list" id="placeList"></ol>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Tutoring request (js/tutoring.js) -->
+    <section class="page" id="page-tutoring" hidden>
+      <div class="wrap">
+        <div class="page-head">
+          <h1 data-i18n="tutor_title"></h1>
+          <p data-i18n="tutor_lead"></p>
+        </div>
+
+        <div class="tutor-layout">
+          <div class="tutor-info">
+            <div class="panel">
+              <h2 class="panel-title" data-i18n="tutor_subjects"></h2>
+              <ul class="subject-list" id="subjectList"></ul>
+            </div>
+            <div class="panel">
+              <h2 class="panel-title" data-i18n="tutor_how"></h2>
+              <ol class="steps">
+                <li><span class="step-number">1</span><h3 data-i18n="tutor_how_1_title"></h3><p data-i18n="tutor_how_1_text"></p></li>
+                <li><span class="step-number">2</span><h3 data-i18n="tutor_how_2_title"></h3><p data-i18n="tutor_how_2_text"></p></li>
+                <li><span class="step-number">3</span><h3 data-i18n="tutor_how_3_title"></h3><p data-i18n="tutor_how_3_text"></p></li>
+              </ol>
+            </div>
+            <p class="privacy-note" data-i18n="tutor_privacy"></p>
+          </div>
+
+          <form class="panel form-grid" id="tutorForm" novalidate>
+            <div class="field">
+              <label for="tutorStudent" data-i18n="student_name"></label>
+              <input id="tutorStudent" maxlength="60" autocomplete="given-name">
+            </div>
+            <div class="field">
+              <label for="tutorGrade" data-i18n="grade"></label>
+              <select id="tutorGrade"></select>
+            </div>
+            <fieldset class="full">
+              <legend data-i18n="subject"></legend>
+              <div class="chips" id="tutorSubjects"></div>
+            </fieldset>
+            <div class="field full">
+              <label for="tutorTopic"><span data-i18n="topic"></span> <span class="optional" data-i18n="optional"></span></label>
+              <input id="tutorTopic" maxlength="120" data-i18n-placeholder="topic_example">
+            </div>
+            <fieldset>
+              <legend data-i18n="when"></legend>
+              <div class="chips" id="tutorTimes"></div>
+            </fieldset>
+            <fieldset>
+              <legend data-i18n="format"></legend>
+              <div class="chips" id="tutorFormats"></div>
+            </fieldset>
+            <fieldset class="full">
+              <legend data-i18n="days"></legend>
+              <div class="chips" id="tutorDays"></div>
+            </fieldset>
+            <div class="field">
+              <label for="tutorLanguage" data-i18n="tutor_language"></label>
+              <select id="tutorLanguage"></select>
+            </div>
+            <div class="field">
+              <label for="tutorContact" data-i18n="parent_contact"></label>
+              <input id="tutorContact" maxlength="120" autocomplete="email">
+            </div>
+            <div class="field full">
+              <label for="tutorNotes"><span data-i18n="notes"></span> <span class="optional" data-i18n="optional"></span></label>
+              <textarea id="tutorNotes" rows="2" maxlength="500"></textarea>
+            </div>
+            <div class="full form-actions">
+              <button class="btn btn-primary" type="submit" id="tutorSubmit"><span data-i18n="send_tutoring"></span></button>
+              <p class="message" id="tutorMessage" hidden role="status"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- AI recipe ideas (js/recipes.js) -->
+    <section class="page" id="page-recipes" hidden>
+      <div class="wrap">
+        <div class="page-head">
+          <h1 data-i18n="recipes_title"></h1>
+          <p data-i18n="recipes_lead"></p>
+        </div>
+
+        <div class="recipe-layout">
+          <form class="panel recipe-form" id="recipeForm" novalidate>
+            <fieldset>
+              <legend data-i18n="age_group"></legend>
+              <div class="chips" id="ageChips"></div>
+            </fieldset>
+            <div id="targetsBox"></div>
+            <fieldset>
+              <legend data-i18n="use_ingredients"></legend>
+              <div class="chips" id="ingredientChips"></div>
+            </fieldset>
+            <fieldset>
+              <legend data-i18n="diet"></legend>
+              <div class="chips" id="dietChips"></div>
+            </fieldset>
+            <fieldset>
+              <legend data-i18n="kitchen"></legend>
+              <div class="chips" id="kitchenChips"></div>
+            </fieldset>
+            <div class="field">
+              <label for="servings" data-i18n="servings"></label>
+              <input id="servings" type="number" min="1" max="12" value="4" inputmode="numeric">
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit" id="recipeButton">
+                <svg class="icon"><use href="#icon-spark"/></svg>
+                <span data-i18n="make_recipes"></span>
+              </button>
+              <button class="btn btn-outline" type="button" id="recipeStop" hidden><span data-i18n="stop"></span></button>
+            </div>
+          </form>
+
+          <div class="recipe-results">
+            <div class="recipe-status" id="recipeStatus" role="status"></div>
+            <div class="recipe-list" id="recipeList"></div>
+            <p class="disclaimer" data-i18n="ai_disclaimer"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Help out: donate or volunteer (js/help-out.js, js/donate.js, js/volunteer.js) -->
+    <section class="page" id="page-help" hidden>
+      <div class="wrap">
+        <div class="page-head">
+          <h1 data-i18n="help_title"></h1>
+          <p data-i18n="help_lead"></p>
+        </div>
+
+        <div class="sub-tabs" role="tablist" aria-label="Help out">
+          <button class="sub-tab" type="button" role="tab" id="helpTabDonate" data-help-tab="donate" aria-controls="helpDonate" aria-selected="true" data-i18n="tab_donate"></button>
+          <button class="sub-tab" type="button" role="tab" id="helpTabVolunteer" data-help-tab="volunteer" aria-controls="helpVolunteer" aria-selected="false" data-i18n="tab_volunteer"></button>
+        </div>
+
+        <!-- Donate -->
+        <div id="helpDonate" role="tabpanel" aria-labelledby="helpTabDonate">
+          <div class="split">
+            <div class="side-note">
+              <p class="lead" data-i18n="donate_lead"></p>
+              <div id="neededBox">
+                <h3 data-i18n="most_needed"></h3>
+                <div class="chips needed-chips" id="neededChips"></div>
+              </div>
+            </div>
+
+            <form class="panel form-grid" id="donateForm" novalidate>
+              <div class="field full">
+                <label for="donateItem" data-i18n="item_name"></label>
+                <input id="donateItem" maxlength="80" data-i18n-placeholder="item_example">
+              </div>
+              <div class="field">
+                <label for="donateCategory" data-i18n="category"></label>
+                <select id="donateCategory"></select>
+              </div>
+              <div class="field">
+                <label for="donateAmount" data-i18n="quantity"></label>
+                <input id="donateAmount" type="number" min="1" max="10000" inputmode="numeric">
+              </div>
+              <div class="field">
+                <label for="donateUnit" data-i18n="unit"></label>
+                <select id="donateUnit"></select>
+              </div>
+              <div class="field">
+                <label for="donateDate"><span data-i18n="dropoff_date"></span> <span class="optional" data-i18n="optional"></span></label>
+                <input id="donateDate" type="date">
+              </div>
+              <div class="field full">
+                <label for="donatePlace" data-i18n="dropoff_location"></label>
+                <select id="donatePlace"></select>
+              </div>
+              <div class="field">
+                <label for="donateName"><span data-i18n="name_plain"></span> <span class="optional" data-i18n="optional"></span></label>
+                <input id="donateName" maxlength="80" autocomplete="name">
+              </div>
+              <div class="field">
+                <label for="donateContact"><span data-i18n="contact"></span> <span class="optional" data-i18n="optional"></span></label>
+                <input id="donateContact" maxlength="120" autocomplete="email">
+              </div>
+              <div class="field full">
+                <label for="donateNotes"><span data-i18n="notes"></span> <span class="optional" data-i18n="optional"></span></label>
+                <textarea id="donateNotes" rows="2" maxlength="500"></textarea>
+              </div>
+              <div class="full form-actions">
+                <button class="btn btn-primary" type="submit" id="donateSubmit"><span data-i18n="offer_donation"></span></button>
+                <p class="message" id="donateMessage" hidden role="status"></p>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Volunteer: pick Lunch and/or After school, then that time's jobs appear -->
+        <div id="helpVolunteer" role="tabpanel" aria-labelledby="helpTabVolunteer" hidden>
+          <div class="split">
+            <div class="side-note">
+              <p class="lead" data-i18n="volunteer_lead"></p>
+              <p class="muted" data-i18n="volunteer_hours"></p>
+            </div>
+
+            <form class="panel form-grid" id="volunteerForm" novalidate>
+              <fieldset class="full">
+                <legend data-i18n="volunteer_when"></legend>
+                <div class="time-options" id="timeOptions"></div>
+              </fieldset>
+              <div class="full" id="jobGroups"></div>
+              <fieldset class="full">
+                <legend data-i18n="volunteer_days"></legend>
+                <div class="chips" id="volunteerDays"></div>
+              </fieldset>
+              <div class="field">
+                <label for="volunteerName" data-i18n="name_plain"></label>
+                <input id="volunteerName" maxlength="80" autocomplete="name">
+              </div>
+              <div class="field">
+                <label for="volunteerGrade"><span data-i18n="school_grade"></span> <span class="optional" data-i18n="optional"></span></label>
+                <input id="volunteerGrade" maxlength="80">
+              </div>
+              <div class="field full">
+                <label for="volunteerContact" data-i18n="email_or_phone"></label>
+                <input id="volunteerContact" maxlength="120" autocomplete="email">
+              </div>
+              <div class="field full">
+                <label for="volunteerLanguages"><span data-i18n="languages_spoken"></span> <span class="optional" data-i18n="optional"></span></label>
+                <input id="volunteerLanguages" maxlength="120" data-i18n-placeholder="languages_example">
+              </div>
+              <div class="full form-actions">
+                <button class="btn btn-primary" type="submit" id="volunteerSubmit"><span id="volunteerSubmitText">Sign up</span></button>
+                <p class="message" id="volunteerMessage" hidden role="status"></p>
+              </div>
+            </form>
+          </div>
+
+          <!-- service hours (js/hours.js) -->
+          <section class="panel hours-panel" id="hoursPanel" aria-labelledby="hoursTitle">
+            <div class="hours-head">
+              <div>
+                <h2 class="panel-title" id="hoursTitle" data-i18n="hours_title"></h2>
+                <p class="muted" data-i18n="hours_lead"></p>
+              </div>
+              <p class="hours-total" id="hoursTotal" hidden></p>
+            </div>
+            <div class="hours-layout">
+              <form class="form-grid" id="hoursForm" novalidate>
+                <div class="field">
+                  <label for="hoursDate" data-i18n="hours_date"></label>
+                  <input id="hoursDate" type="date">
+                </div>
+                <div class="field">
+                  <label for="hoursAmount" data-i18n="hours_amount"></label>
+                  <input id="hoursAmount" type="number" min="0.25" max="12" step="0.25" inputmode="decimal">
+                </div>
+                <div class="field full">
+                  <label for="hoursTask" data-i18n="hours_task"></label>
+                  <select id="hoursTask"></select>
+                </div>
+                <div class="field full">
+                  <label for="hoursNotes"><span data-i18n="notes"></span> <span class="optional" data-i18n="optional"></span></label>
+                  <input id="hoursNotes" maxlength="200">
+                </div>
+                <div class="full form-actions">
+                  <button class="btn btn-primary" type="submit" id="hoursSubmit"><span data-i18n="log_hours"></span></button>
+                  <p class="message" id="hoursMessage" hidden role="status"></p>
+                </div>
+              </form>
+              <ul class="request-list" id="hoursList"></ul>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- My requests: updates, past requests and restock alerts (js/my-requests.js) -->
+    <section class="page" id="page-mine" hidden>
+      <div class="wrap">
+        <div class="page-head">
+          <h1 data-i18n="mine_title"></h1>
+          <p data-i18n="mine_lead"></p>
+        </div>
+
+        <div class="mine-layout">
+          <section>
+            <h2 class="section-title" data-i18n="updates_title"></h2>
+            <ul class="request-list" id="updatesList"></ul>
+          </section>
+          <section>
+            <h2 class="section-title" data-i18n="food_requests"></h2>
+            <ul class="request-list" id="foodRequestList"></ul>
+          </section>
+          <section>
+            <h2 class="section-title" data-i18n="tutoring_requests"></h2>
+            <ul class="request-list" id="tutorRequestList"></ul>
+          </section>
+          <section>
+            <h2 class="section-title" data-i18n="watch_title"></h2>
+            <ul class="request-list" id="watchList"></ul>
+          </section>
+        </div>
+      </div>
+    </section>
+
+
+    <footer class="site-footer">
+      <div class="wrap footer-row">
+        <div>
+          <a class="brand" href="#home" data-page="home" aria-label="UConnect home">
+            <svg class="logo" aria-hidden="true"><use href="#logo"/></svg>
+            <span>UConnect</span>
+          </a>
+          <p class="footer-about" data-i18n="footer_about"></p>
+        </div>
+        <div>
+          <p class="help-line" data-i18n="footer_211"></p>
+          <p data-i18n="footer_note"></p>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+
+  <!-- ============ Student side (English only) ============ -->
+
+  <main id="staffSite" hidden>
+
+    <section id="page-login">
+      <div class="wrap login-wrap">
+        <div class="panel login-card">
+          <svg class="logo login-logo" aria-hidden="true"><use href="#logo"/></svg>
+          <h1>Student volunteer login</h1>
+          <p class="muted">
+            Volunteers sign in with their Claude account. The team lead adds each student
+            to this page as an Editor, which unlocks the dashboard.
+          </p>
+          <div id="loginBody"></div>
+          <button class="link-button" type="button" data-page="home">Back to the public site</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-dashboard" hidden>
+      <div class="wrap dashboard">
+        <div class="dashboard-head">
+          <div>
+            <p class="eyebrow">Student dashboard</p>
+            <h1 id="dashboardHello">Welcome back</h1>
+          </div>
+          <p class="dashboard-note">
+            <svg class="icon"><use href="#icon-bell"/></svg>
+            New requests pop up here while this tab is open.
+          </p>
+        </div>
+
+        <div class="tiles" id="tiles"></div>
+
+        <!-- what the home page numbers say (js/impact.js) -->
+        <div class="impact-line">
+          <span><b>Home page shows:</b> <span id="impactSummary"></span></span>
+          <label for="impactSince">counting from</label>
+          <input id="impactSince" type="date">
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Dashboard sections">
+          <button class="tab" type="button" role="tab" data-tab="orders" id="tab-orders" aria-controls="panel-orders" aria-selected="true">
+            Food <span class="count" id="countOrders">0</span>
+          </button>
+          <button class="tab" type="button" role="tab" data-tab="tutoring" id="tab-tutoring" aria-controls="panel-tutoring" aria-selected="false">
+            Tutoring <span class="count" id="countTutoring">0</span>
+          </button>
+          <button class="tab" type="button" role="tab" data-tab="stock" id="tab-stock" aria-controls="panel-stock" aria-selected="false">
+            Stock <span class="count" id="countStock">0</span>
+          </button>
+          <button class="tab" type="button" role="tab" data-tab="volunteers" id="tab-volunteers" aria-controls="panel-volunteers" aria-selected="false">
+            Volunteers <span class="count" id="countVolunteers">0</span>
+          </button>
+          <button class="tab" type="button" role="tab" data-tab="locations" id="tab-locations" aria-controls="panel-locations" aria-selected="false">
+            Locations <span class="count" id="countLocations">0</span>
+          </button>
+        </div>
+
+
+        <!-- Food requests and donation offers (js/dashboard-food.js) -->
+        <section class="tab-panel" id="panel-orders" role="tabpanel" aria-labelledby="tab-orders">
+          <div class="toolbar">
+            <div class="chips" id="orderFilters" role="group" aria-label="Filter food requests"></div>
+            <button class="btn btn-outline btn-small" type="button" id="printSlipsButton">Print packing slips</button>
+          </div>
+          <div class="card-grid" id="orderCards"></div>
+        </section>
+
+
+        <!-- Tutoring requests (js/dashboard-tutoring.js) -->
+        <section class="tab-panel" id="panel-tutoring" role="tabpanel" aria-labelledby="tab-tutoring" hidden>
+          <div class="chips" id="tutorFilters" role="group" aria-label="Filter tutoring requests"></div>
+          <div class="card-grid" id="tutorCards"></div>
+          <datalist id="tutorNames"></datalist>
+        </section>
+
+
+        <!-- Stock table and the add/edit item form (js/dashboard-stock.js) -->
+        <section class="tab-panel" id="panel-stock" role="tabpanel" aria-labelledby="tab-stock" hidden>
+          <div class="toolbar">
+            <label for="stockSearch" class="sr-only">Search stock</label>
+            <input id="stockSearch" type="search" placeholder="Search stock" autocomplete="off">
+            <label for="stockPlace" class="sr-only">Location</label>
+            <select id="stockPlace"></select>
+            <button class="chip" type="button" id="lowOnlyButton" aria-pressed="false">Low or out only</button>
+            <button class="btn btn-outline btn-small" type="button" id="bulkButton">Bulk update</button>
+            <button class="btn btn-primary btn-small" type="button" id="addItemButton">
+              <svg class="icon"><use href="#icon-plus"/></svg>Add item
+            </button>
+          </div>
+
+          <p class="sample-note" id="sampleNote" hidden>
+            <span id="sampleNoteText"></span>
+            Change an amount (or use Bulk update after counting) and it stops being a sample.
+            <button class="link-button" type="button" id="markCountedButton">The amounts are right, mark them all counted</button>
+          </p>
+
+          <!-- paste a delivery list or count sheet (js/dashboard-bulk.js) -->
+          <form class="panel edit-form" id="bulkForm" hidden novalidate>
+            <h3>Bulk update</h3>
+            <p class="hint whole">
+              Paste a delivery list or count sheet, one item per line, like <b>Rice 12</b> or <b>12 cans black beans</b>.
+              Names can be in any of the four languages. Nothing changes until you check the list and press Update.
+            </p>
+            <div class="field half">
+              <label for="bulkPlace">Location</label>
+              <select id="bulkPlace"></select>
+            </div>
+            <fieldset class="half bulk-mode">
+              <legend>The numbers are</legend>
+              <label class="check-row"><input type="radio" name="bulkMode" value="add" checked><span>Amounts to add (a delivery came in)</span></label>
+              <label class="check-row"><input type="radio" name="bulkMode" value="set"><span>New totals (we counted the shelves)</span></label>
+            </fieldset>
+            <div class="field whole">
+              <label for="bulkText">List</label>
+              <textarea id="bulkText" rows="6" placeholder="Rice 12&#10;Black beans, 24&#10;8 boxes pasta"></textarea>
+            </div>
+            <div class="whole form-actions">
+              <button class="btn btn-primary" type="button" id="bulkCheckButton">Check list</button>
+              <button class="btn btn-outline" type="button" id="cancelBulkButton">Cancel</button>
+            </div>
+            <div class="whole" id="bulkPreview"></div>
+            <div class="whole form-actions">
+              <button class="btn btn-primary" type="button" id="bulkSaveButton" hidden>Update items</button>
+              <p class="message" id="bulkMessage" hidden role="status"></p>
+            </div>
+          </form>
+
+          <form class="panel edit-form" id="itemForm" hidden novalidate>
+            <h3 id="itemFormTitle">Add item</h3>
+
+            <div class="field half">
+              <label for="itemNameEn">Name (English)</label>
+              <input id="itemNameEn" maxlength="80">
+            </div>
+            <div class="field half translate-field">
+              <button class="btn btn-outline btn-small" type="button" id="translateButton">
+                <svg class="icon"><use href="#icon-spark"/></svg><span>Translate names with AI</span>
+              </button>
+            </div>
+
+            <div class="field">
+              <label for="itemNameEs">Español</label>
+              <input id="itemNameEs" maxlength="80" lang="es">
+            </div>
+            <div class="field">
+              <label for="itemNameZh">中文</label>
+              <input id="itemNameZh" maxlength="80" lang="zh">
+            </div>
+            <div class="field half">
+              <label for="itemNameRu">Русский</label>
+              <input id="itemNameRu" maxlength="80" lang="ru">
+            </div>
+
+            <div class="field">
+              <label for="itemCategory">Category</label>
+              <select id="itemCategory"></select>
+            </div>
+            <div class="field">
+              <label for="itemPlace">Location</label>
+              <select id="itemPlace"></select>
+            </div>
+            <div class="field">
+              <label for="itemAmount">Quantity</label>
+              <input id="itemAmount" type="number" min="0" max="100000" inputmode="numeric">
+            </div>
+            <div class="field">
+              <label for="itemUnit">Unit</label>
+              <select id="itemUnit"></select>
+            </div>
+            <div class="field">
+              <label for="itemLowAt">Low-stock alert at</label>
+              <input id="itemLowAt" type="number" min="0" max="10000" inputmode="numeric">
+            </div>
+
+            <fieldset class="half">
+              <legend>Contains</legend>
+              <div class="chips" id="itemAllergenChips"></div>
+            </fieldset>
+            <fieldset class="half">
+              <legend>Fits these diets</legend>
+              <div class="chips" id="itemDietChips"></div>
+            </fieldset>
+
+            <div class="whole form-actions">
+              <button class="btn btn-primary" type="submit">Save item</button>
+              <button class="btn btn-outline" type="button" id="cancelItemButton">Cancel</button>
+              <p class="message" id="itemMessage" hidden role="status"></p>
+            </div>
+          </form>
+
+          <div class="table-wrap">
+            <table class="stock-table">
+              <!-- fixed column widths, so changing a number never shifts the columns -->
+              <colgroup>
+                <col class="col-item">
+                <col class="col-place">
+                <col class="col-amount">
+                <col class="col-status">
+                <col class="col-waiting">
+                <col class="col-updated">
+                <col class="col-actions">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col">Item</th>
+                  <th scope="col">Location</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Waiting</th>
+                  <th scope="col">Updated</th>
+                  <th scope="col"><span class="sr-only">Actions</span></th>
+                </tr>
+              </thead>
+              <tbody id="stockRows"></tbody>
+            </table>
+          </div>
+        </section>
+
+
+        <!-- Volunteer sign-ups and weekly coverage (js/dashboard-volunteers.js) -->
+        <section class="tab-panel" id="panel-volunteers" role="tabpanel" aria-labelledby="tab-volunteers" hidden>
+          <div class="toolbar">
+            <h2 class="panel-title coverage-title">Service hours to approve <span class="count" id="hoursCount">0</span></h2>
+            <button class="btn btn-outline btn-small" type="button" id="copyHoursButton">
+              <svg class="icon"><use href="#icon-copy"/></svg>Copy hours report
+            </button>
+          </div>
+          <div class="card-grid" id="hoursCards"></div>
+
+          <h2 class="panel-title coverage-title">Weekly coverage</h2>
+          <p class="muted coverage-note">How many volunteers can come each day. Red means nobody yet.</p>
+          <div class="table-wrap">
+            <table class="coverage" id="coverageTable"></table>
+          </div>
+
+          <div class="toolbar">
+            <p class="muted" id="volunteerSummary"></p>
+            <button class="btn btn-outline btn-small" type="button" id="copyContactsButton">
+              <svg class="icon"><use href="#icon-copy"/></svg>Copy all contacts
+            </button>
+          </div>
+          <textarea class="copy-box" id="copyBox" readonly hidden aria-label="Volunteer contacts"></textarea>
+          <div class="card-grid" id="volunteerCards"></div>
+        </section>
+
+
+        <!-- Pickup locations (js/dashboard-locations.js) -->
+        <section class="tab-panel" id="panel-locations" role="tabpanel" aria-labelledby="tab-locations" hidden>
+          <div class="toolbar">
+            <p class="muted">
+              These places show on the public map. Turn off "Sample" once a location is real,
+              and its Directions link appears.
+            </p>
+            <button class="btn btn-primary btn-small" type="button" id="addPlaceButton">
+              <svg class="icon"><use href="#icon-plus"/></svg>Add location
+            </button>
+          </div>
+
+          <form class="panel edit-form" id="placeForm" hidden novalidate>
+            <h3 id="placeFormTitle">Add location</h3>
+
+            <div class="field half">
+              <label for="placeName">Name</label>
+              <input id="placeName" maxlength="100">
+            </div>
+            <div class="field">
+              <label for="placeType">Type</label>
+              <select id="placeType"></select>
+            </div>
+            <div class="field">
+              <label for="placePhone">Phone</label>
+              <input id="placePhone" maxlength="40">
+            </div>
+            <div class="field whole">
+              <label for="placeAddress">Address</label>
+              <input id="placeAddress" maxlength="160">
+            </div>
+            <div class="field half">
+              <label for="placeHours">Hours</label>
+              <input id="placeHours" maxlength="120" placeholder="Mon–Fri 3–5 PM">
+            </div>
+            <div class="field">
+              <label for="placeLat">Latitude</label>
+              <input id="placeLat" inputmode="decimal" placeholder="34.0610">
+            </div>
+            <div class="field">
+              <label for="placeLng">Longitude</label>
+              <input id="placeLng" inputmode="decimal" placeholder="-118.2550">
+            </div>
+            <p class="hint whole">
+              To get coordinates, right-click the place in Google Maps and click the numbers
+              at the top of the menu to copy them.
+            </p>
+            <div class="field half">
+              <label for="placeWebsite">Website</label>
+              <input id="placeWebsite" maxlength="300" inputmode="url" placeholder="https://">
+            </div>
+            <div class="field half">
+              <label for="placeNote">Who can come</label>
+              <input id="placeNote" maxlength="160" placeholder="Open to everyone">
+            </div>
+
+            <label class="check-row whole" for="placeTakesRequests">
+              <input type="checkbox" id="placeTakesRequests">
+              <span>
+                Families can send food requests here through UConnect
+                <small>Turn this on for our own pantry. Other pantries just show on the map.</small>
+              </span>
+            </label>
+
+            <!-- only shows when "send food requests here" is on -->
+            <fieldset class="whole pickup-settings" id="pickupSettings">
+              <legend>Pickup times</legend>
+              <p class="hint">Families pick one of these times when they send a request, so they don't all come at once. Untick every day to turn pickup times off.</p>
+              <div class="chips" id="pickupDays" role="group" aria-label="Pickup days"></div>
+              <div class="pickup-grid">
+                <div class="field">
+                  <label for="pickupStart">From</label>
+                  <input id="pickupStart" type="time" step="300">
+                </div>
+                <div class="field">
+                  <label for="pickupEnd">Until</label>
+                  <input id="pickupEnd" type="time" step="300">
+                </div>
+                <div class="field">
+                  <label for="pickupMinutes">Each time is</label>
+                  <select id="pickupMinutes">
+                    <option value="10">10 minutes</option>
+                    <option value="15">15 minutes</option>
+                    <option value="20">20 minutes</option>
+                    <option value="30">30 minutes</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="pickupPerSlot">Families per time</label>
+                  <input id="pickupPerSlot" type="number" min="1" max="50" inputmode="numeric">
+                </div>
+              </div>
+            </fieldset>
+
+            <label class="check-row whole" for="placeSample">
+              <input type="checkbox" id="placeSample">
+              <span>Sample location (hides Directions and shows a "Sample" tag)</span>
+            </label>
+
+            <div class="whole form-actions">
+              <button class="btn btn-primary" type="submit">Save location</button>
+              <button class="btn btn-outline" type="button" id="cancelPlaceButton">Cancel</button>
+              <p class="message" id="placeMessage" hidden role="status"></p>
+            </div>
+          </form>
+
+          <div class="card-grid" id="placeCards"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- Packing slip preview (js/packing-slips.js) -->
+  <div class="slip-overlay" id="slipOverlay" hidden role="dialog" aria-modal="true" aria-labelledby="slipTitle">
+    <div class="slip-toolbar">
+      <h2 id="slipTitle">Packing slips</h2>
+      <button class="btn btn-primary btn-small" type="button" id="slipPrintButton">Print</button>
+      <button class="btn btn-outline btn-small" type="button" id="slipSaveButton">Save as file</button>
+      <button class="btn btn-outline btn-small" type="button" id="slipCloseButton">Close</button>
+    </div>
+    <div class="slip-sheets" id="slipSheets"></div>
+  </div>
+
+  <!-- Bottom bar on phones: "3 items in your bag · Review" -->
+  <div class="bag-bar" id="bagBar">
+    <span id="bagBarText"></span>
+    <button class="btn btn-small btn-primary" type="button" id="bagBarButton"><span data-i18n="review"></span></button>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+
+  <!-- local demo only: a stand-in for Claude's database so this file works on your computer -->
+  <script src="js/sample-data.js"></script>
+  <script src="js/local-demo.js"></script>
+
+  <!-- the app (build.py joins these into one file, in this order) -->
+  <script src="js/translations.js"></script>
+  <script src="js/helpers.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/pages.js"></script>
+  <script src="js/pickup-times.js"></script>
+  <script src="js/impact.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/food.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/locations.js"></script>
+  <script src="js/tutoring.js"></script>
+  <script src="js/recipes.js"></script>
+  <script src="js/help-out.js"></script>
+  <script src="js/donate.js"></script>
+  <script src="js/volunteer.js"></script>
+  <script src="js/hours.js"></script>
+  <script src="js/my-requests.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/dashboard-food.js"></script>
+  <script src="js/dashboard-tutoring.js"></script>
+  <script src="js/dashboard-stock.js"></script>
+  <script src="js/dashboard-bulk.js"></script>
+  <script src="js/dashboard-volunteers.js"></script>
+  <script src="js/dashboard-locations.js"></script>
+  <script src="js/packing-slips.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
